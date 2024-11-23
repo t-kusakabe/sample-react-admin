@@ -15,5 +15,7 @@ services:
       - type: bind
         source: .
         target: /app
+    environment:
+      NODE_OPTIONS: "--disable-warning=ExperimentalWarning"
     tty: true
     stdin_open: true
