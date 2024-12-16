@@ -35,8 +35,8 @@ async function handler(request: Request) {
                 request.headers.get('content-type') ?? 'application/json',
             // supabase authentication
             apiKey: process.env.SUPABASE_SERVICE_ROLE ?? '',
-            Authorization: "Bearer " + process.env.SUPABASE_SERVICE_ROLE ?? '',
-        },
+            Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE ?? ''}`
+        }
     };
 
     if (request.body) {
