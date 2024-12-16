@@ -1,0 +1,1 @@
+create database sample_react_admin_dev;

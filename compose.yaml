@@ -19,3 +19,29 @@ services:
       NODE_OPTIONS: "--disable-warning=ExperimentalWarning"
     tty: true
     stdin_open: true
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    container_name: mysql
+    ports:
+      - target: 3306
+        host_ip: 127.0.0.1
+        published: 3306
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+    environment:
+      MYSQL_ROOT_USER: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: "Asia/Tokyo"
+
+volumes:
+  mysql-data:
+    name: mysql-data
