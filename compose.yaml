@@ -16,7 +16,9 @@ services:
         source: .
         target: /app
     environment:
-      NODE_OPTIONS: "--disable-warning=ExperimentalWarning"
+      DB_HOST: "mysql"
+      DB_USER: "root"
+      DB_PASSWORD: ""
     tty: true
     stdin_open: true
 
