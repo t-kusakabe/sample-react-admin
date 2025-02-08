@@ -8,10 +8,4 @@ Nextjsを使った管理画面のPoC。
 docker compose build
 docker compose run --rm node npm i
 docker compose up -d
-docker compose exec npm npx 
-
 ```
-
-## 
-
-- 
