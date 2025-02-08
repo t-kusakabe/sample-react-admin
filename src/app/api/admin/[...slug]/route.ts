@@ -1,61 +1,60 @@
 export const dynamic = 'force-dynamic'; // defaults to auto
 export async function GET(request: Request) {
-    return handler(request);
+  return handler(request);
 }
 
 export async function POST(request: Request) {
-    return handler(request);
+  return handler(request);
 }
 
 export async function PUT(request: Request) {
-    return handler(request);
+  return handler(request);
 }
 
 export async function PATCH(request: Request) {
-    return handler(request);
+  return handler(request);
 }
 
 export async function DELETE(request: Request) {
-    return handler(request);
+  return handler(request);
 }
 
 async function handler(request: Request) {
-    // get part after /api/admin/ in string url
-    const requestUrl = request.url.split('/api/admin')[1];
+  // get part after /api/admin/ in string url
+  const requestUrl = request.url.split('/api/admin')[1];
 
-    // build the CRUD request based on the incoming request
-    const url = `${process.env.SUPABASE_URL}/rest/v1${requestUrl}`;
+  // build the CRUD request based on the incoming request
+  const url = `${process.env.SUPABASE_URL}/rest/v1${requestUrl}`;
 
-    const options: RequestInit = {
-        method: request.method,
-        headers: {
-            prefer: (request.headers.get('prefer') as string) ?? '',
-            accept: request.headers.get('accept') ?? 'application/json',
-            ['content-type']:
-                request.headers.get('content-type') ?? 'application/json',
-            // supabase authentication
-            apiKey: process.env.SUPABASE_SERVICE_ROLE ?? '',
-            Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE ?? ''}`
-        }
-    };
-
-    if (request.body) {
-        const body = await request.json();
-        options.body = JSON.stringify(body);
+  const options: RequestInit = {
+    method: request.method,
+    headers: {
+      prefer: (request.headers.get('prefer') as string) ?? '',
+      accept: request.headers.get('accept') ?? 'application/json',
+      ['content-type']: request.headers.get('content-type') ?? 'application/json',
+      // supabase authentication
+      apiKey: process.env.SUPABASE_SERVICE_ROLE ?? '',
+      Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE ?? ''}`
     }
+  };
 
-    // call the CRUD API
-    const response = await fetch(url, options);
+  if (request.body) {
+    const body = await request.json();
+    options.body = JSON.stringify(body);
+  }
 
-    const contentRange = response.headers.get('content-range');
+  // call the CRUD API
+  const response = await fetch(url, options);
 
-    const headers = new Headers();
-    if (contentRange) {
-        headers.set('Content-Range', contentRange);
-    }
-    const data = await response.text();
-    return new Response(data, {
-        status: 200,
-        headers,
-    });
+  const contentRange = response.headers.get('content-range');
+
+  const headers = new Headers();
+  if (contentRange) {
+    headers.set('Content-Range', contentRange);
+  }
+  const data = await response.text();
+  return new Response(data, {
+    status: 200,
+    headers
+  });
 }
