@@ -5,7 +5,7 @@ export default {
   out: './drizzle/migrations',
   dialect: 'mysql',
   dbCredentials: {
-    host: 'localhsot',
+    host: 'mysql',
     port: 3306,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
