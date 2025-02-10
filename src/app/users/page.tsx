@@ -8,7 +8,7 @@ interface User {
   bio: string;
 }
 
-export default function UsersPage() {
+export default () => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -30,4 +30,4 @@ export default function UsersPage() {
       ))}
     </div>
   );
-}
+};
